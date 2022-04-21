@@ -149,3 +149,79 @@ CREATE TABLE Restock(
 									  ON UPDATE CASCADE,
 	FOREIGN KEY (name) REFERENCES Dish ON DELETE CASCADE
 											 ON UPDATE CASCADE);
+
+
+INSERT INTO Dish
+	VALUES('Tea','Drink',3.25,0.01,1000);
+
+INSERT INTO Dish
+	VALUES('Soda','Drink',3.25,0.01,1000);
+
+INSERT INTO Dish
+	VALUES('Water','Drink',0.00,0.00,1000);
+
+INSERT INTO Employee
+	VALUES('12A','John','Smith','222336666','11/12/1990','Clear Lake');
+
+INSERT INTO Employee
+	VALUES('23A','Daisy','Jones','111336666','1/22/1995','Webster');
+
+INSERT INTO Top
+	VALUES(2,4,'-999','Booth');
+
+INSERT INTO Top
+	VALUES(3,4,'-999','Booth');
+
+INSERT INTO Top
+	VALUES(4,4,'-999','Booth');
+
+INSERT INTO Top
+	VALUES(11,6,'-999','Table');
+
+INSERT INTO Top
+	VALUES(12,6,'-999','Table');
+
+INSERT INTO Top
+	VALUES(41,6,'-999','Table');
+
+INSERT INTO Top
+	VALUES(42,6,'-999','Table');
+
+INSERT INTO Top
+	VALUES(43,6,'-999','Table');
+
+INSERT INTO Top
+	VALUES(61,4,'-999','Booth');
+
+INSERT INTO Top
+	VALUES(62,4,'-999','Booth');
+
+INSERT INTO Top
+	VALUES(63,4,'-999','Booth');
+
+INSERT INTO Top
+	VALUES(51,4,'-999','Table');
+
+INSERT INTO Top
+	VALUES(52,4,'-999','Table');
+
+INSERT INTO Top
+	VALUES(53,4,'-999','Table');
+
+INSERT INTO Top
+	VALUES(21,2,'-999','Booth');
+
+INSERT INTO Top
+	VALUES(22,2,'-999','Booth');
+
+INSERT INTO Top
+	VALUES(23,2,'-999','Booth');
+
+INSERT INTO Top
+	VALUES(31,2,'-999','Booth');
+
+INSERT INTO Top
+	VALUES(32,2,'-999','Booth');
+
+INSERT INTO Top
+	VALUES(33,2,'-999','Booth');
