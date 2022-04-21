@@ -1,3 +1,7 @@
+################################################
+# Table Construction		  				   #
+################################################
+
 CREATE TABLE Employee(
 	emp_id varchar(3) NOT NULL,
 	f_name varchar(20),
@@ -28,7 +32,7 @@ CREATE TABLE Ticket(
 											 ON UPDATE CASCADE);
 CREATE TABLE Payment(
 	p_no INT NOT NULL,
-	tkt_no INT
+	tkt_no INT,
 	amount NUMERIC(5,2),
 	type varchar(10),
 	cc_no varchar(16),
@@ -51,6 +55,7 @@ CREATE TABLE Dish(
 CREATE TABLE Sold(
 	tkt_no INT,
 	name varchar(30),
+	amount INT,
 	PRIMARY KEY (tkt_no, name),
 	FOREIGN KEY (tkt_no) REFERENCES Ticket ON DELETE CASCADE
 									  ON UPDATE CASCADE,
@@ -150,6 +155,10 @@ CREATE TABLE Restock(
 	FOREIGN KEY (name) REFERENCES Dish ON DELETE CASCADE
 											 ON UPDATE CASCADE);
 
+################################################
+# Add all Table Tops on our map	to the DB      #
+# And a few items to Dish and Employee	  	   #
+################################################
 
 INSERT INTO Dish
 	VALUES('Tea','Drink',3.25,0.01,1000);
@@ -159,6 +168,9 @@ INSERT INTO Dish
 
 INSERT INTO Dish
 	VALUES('Water','Drink',0.00,0.00,1000);
+
+INSERT INTO Dish
+	VALUES('Queso','App',6.75,0.10,65);
 
 INSERT INTO Employee
 	VALUES('12A','John','Smith','222336666','11/12/1990','Clear Lake');
@@ -225,3 +237,85 @@ INSERT INTO Top
 
 INSERT INTO Top
 	VALUES(33,2,'-999','Booth');
+
+################################################
+# These Types of operations should be helpful  #
+# Many actions in our program will utilize     #
+# These or similar commands					   #
+################################################
+# 1. Ticket Lifecyle 						   #
+#											   #
+# 											   #
+################################################
+
+
+
+####### Ticket Lifecycle #######################
+################################################
+
+#Assigns Table 2 to employee with id '12A' (John Smith)
+UPDATE Top
+SET emp_id = '12A'
+WHERE t_no = 2
+
+#Create a Ticket for Table 2 with employee id from the table owner ('12A')
+INSERT INTO Ticket
+	VALUES(1,'Open','4/21/2022',2,'12A')
+
+#Add 4 Teas, 4 Waters, and 2 Quesos to ticket 1
+INSERT INTO Sold
+	VALUES(1,'Tea',4)
+INSERT INTO Sold
+	VALUES(1,'Water',4)
+INSERT INTO Sold
+	VALUES(1,'Queso',2)
+
+#Shows all Items and thier prices on Ticket 1
+SELECT Sold.tkt_no, Sold.name, Sold.amount, Dish.price
+FROM Sold, Dish
+WHERE tkt_no = 1 and sold.name = Dish.name
+
+#Gets the Total Cost of Ticket 1
+SELECT SUM(amount * price)
+FROM(SELECT Sold.tkt_no, Sold.name, Sold.amount, Dish.price
+		FROM Sold, Dish
+		WHERE tkt_no = 1 and sold.name = Dish.name)
+
+#Adds 2 Cash Payments to Ticket 1
+INSERT INTO Payment
+	VALUES(1,1,10,'Cash',NULL,NULL,NULL)
+INSERT INTO Payment
+	VALUES(2,1,16.5,'Cash',NULL,NULL,NULL)
+
+#See all Payments on Ticket 1
+SELECT *
+FROM Payment
+WHERE tkt_no = 1
+
+#Get Total Value of Payments on Ticket 1
+SELECT SUM(amount) as total_payments
+FROM Payment
+WHERE tkt_no = 1
+
+#See Open Tickets on table 2
+SELECT *
+FROM Ticket
+WHERE t_no = 2 and status = 'Open'
+
+#Close Ticket 1
+UPDATE Ticket
+SET status = 'Closed'
+WHERE tkt_no = 1
+
+#See Open Tickets on table 2
+SELECT *
+FROM Ticket
+WHERE t_no = 2 and status = 'Open'
+
+#Releases Table 2
+UPDATE Top
+SET emp_id = '-999'
+WHERE t_no = 2
+
+####### Ticket Lifecycle End ###################
+################################################
