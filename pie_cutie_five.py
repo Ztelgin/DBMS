@@ -99,8 +99,11 @@ class Table(QWidget):
         self.setWindowTitle('Table ' + self.number + ' -' + self.parent.user)
 
         self.button = QPushButton('Return',self)
-        self.button.move(250,250)
+        self.button.move(25,450)
         self.button.clicked.connect(self.buttonClicked)
+
+        self.buttonOpen = QPushButton('Open Ticket', self)
+        self.buttonOpen.move(400,50)
 
     def buttonClicked(self):
 
@@ -109,7 +112,7 @@ class Table(QWidget):
 
 
 
-class Payment(QWidget):
+class Ticket(QWidget):
 
     def __init__(self, parent, number):
         super().__init__()
@@ -130,3 +133,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+
